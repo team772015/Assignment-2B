@@ -1,0 +1,147 @@
+//calculating the distance
+function gps_distance(lat1, lon1, lat2, lon2) {
+  
+    var R = 6371; // km
+    var dLat = (lat2 - lat1) * (Math.PI / 180);
+    var dLon = (lon2 - lon1) * (Math.PI / 180);
+    var lat1 = lat1 * (Math.PI / 180);
+    var lat2 = lat2 * (Math.PI / 180);
+
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    return d;
+}
+
+function errorHandler(err) {
+            if(err.code === 1) {
+               alert("Error: Access is denied!");
+            }
+            
+            else if( err.code === 2) {
+               alert("Error: Position is unavailable!");
+            }
+         }
+
+var outString=document.getElementById("");
+var run_id=''; //Name of the run
+var watch_id=null; //ID of the geoloacation
+var run_data=[]; //Array of the GPS loccations
+
+function getLocation(){
+      if (navigator.geolocation) { 
+          var options={enableHighAccuracy:true}
+         watch_id = navigator.geolocation.watchPosition(pos,err, options);
+          
+      } else{ 
+          outString.innerHTML="Geolocation not supported";
+      }
+
+}
+    function pos{{
+    run_data.push(pos);}
+    
+
+var startLatLng = new google.maps.LatLng(run_data[0].coords.latitude, run_data[0].coords.longitude);
+                               
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: myLatLng,
+    zoom: 8
+  });
+}
+ 
+var startmarker = new google.maps.Marker({
+    position: startLatLng,
+    map: map,
+    title: 'start point'
+  });  
+         
+    startmarker.setMap(map)             
+
+var run_LatLng =[];
+
+for(var i=0; i<run_data.length; i++){
+    run_LatLng.push(new google.maps.LatLng(run_data[i].coords.latitude,run_data[i].coords.longtitude));
+}
+
+
+    
+var run_Path = new google.maps.Polyline({
+    path: run_LatLng,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
+
+run_Path.setMap(map);
+
+                }
+
+
+function stop_tracking(){
+     // Stop tracking the user
+    navigator.geolocation.clearWatch(watch_id);
+    
+    
+    var endLatLng = new google.maps.LatLng(run_data[run_data.length-1].coords.latitude, run_data[run_data.length-1].coords.longitude);
+    
+    var endmarker = new google.maps.Marker({
+    position: startLatLng,
+    map: map,
+    title: 'end point'
+  });  
+    
+    endmarker.setMap(map)
+
+// Save the tracking data
+    window.localStorage.setItem(run_id, JSON.stringify(run_data));
+    
+    // emptying data array
+    run_data=[];
+    watch_id=null;
+    // clear all markers and polylines from the map
+    run_path.setMap(null);
+    endmarker.setMap(null);
+    startmarker.setMap(null);
+}
+
+
+function show
+
+
+
+// Calculate the total distance travelled
+total_km = 0;
+ 
+for(i = 0; i < data.length; i++){
+     
+    if(i == (data.length - 1)){
+        break;
+    }
+     
+    total_km += gps_distance(run_data[i].coords.latitude, run_data[i].coords.longitude, run_data[i+1].coords.latitude, run_data[i+1].coords.longitude);
+}
+ 
+total_km_rounded = total_km.toFixed(2);
+
+
+
+// Calculate the total time taken for the track
+start_time = new Date(data[0].timestamp).getTime();
+end_time = new Date(data[data.length-1].timestamp).getTime();
+ 
+total_time_ms = end_time - start_time;
+total_time_s = total_time_ms / 1000;
+ 
+final_time_m = Math.floor(total_time_s / 1000);
+final_time_s = total_time_s - (final_time_m * 60);
+ 
+// Display total distance and time
+outString.innerHTML=('Travelled <strong>' + total_km_rounded + '</strong> km in <strong>' + final_time_m + 'm</strong> and <strong>' + final_time_s + 's</strong>');
+
+
