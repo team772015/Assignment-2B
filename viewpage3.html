@@ -1,0 +1,63 @@
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
+        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src="view.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="doit.css" type="text/css">
+
+    </head>
+    
+    
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+                mdl-layout--fixed-tabs">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row" style="height:%;">
+          <!-- Title -->
+          <span class="mdl-layout-title" style="font-size:300%;">viewpage</span>
+        </div>
+          
+          <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                    <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Route List</a>
+                    <a href="#fixed-tab-2" class="mdl-layout__tab">Map</a>
+                </div>
+      </header>
+        
+      <div class="mdl-layout__drawer">
+        <span id="menu" class="mdl-layout-title">Menu</span>
+          <a href="Index.html"><div id="item;">Main</div></a>
+          <a href="Record.html"><div id="item;">Record</div><a>
+      </div>
+        
+      </header>
+            <div class="mdl-layout__drawer">
+                <span id="menu" class="mdl-layout-title">Menu</span>
+                <a href="Initialpage.html"><div id="item" >Main</div></a>
+                <a href="RecordPage.html"><div  id="item">Map</div></a>
+            </div>
+            
+            <main class="mdl-layout__content">
+                <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+                    <div class="page-content"><!-- Your content goes here -->
+                    <script src="showRoute.js" type="text/javascript"></script>         
+                    </div>
+                </section>
+                <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+                    <div class="page-content"><!-- Your content goes here -->
+                        <div id="map"></div>
+                        <script src="showRoute.js" type="text/javascript"></script>
+                        <div id="floating-panel">
+                            <label id="showInf"></label>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </section>
+            </main> 
+        
+        
+        <script async defer src="http://maps.googleapis.com/maps/api/js?v=3&amp;key=&amp;callback=initMap"></script>
+        
+    </body>
+</html>
