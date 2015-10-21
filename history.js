@@ -1,33 +1,5 @@
-// When the user views the history page
-$('#history').live('pageshow', function () {
-
-    // Count the number of entries in localStorage and display this information to the user
-    tracks_recorded = window.localStorage.length;
-    $("#tracks_recorded").html("<strong>" + tracks_recorded + "</strong> workout(s) recorded");
-
-    // Empty the list of recorded tracks
-    $("#history_tracklist").empty();
-
-    // Iterate over all of the recorded tracks, populating the list
-    for (var i = 0; i < tracks_recorded; i++) {
-        $("#history_tracklist").append("<li><a href='#track_info' data-ajax='false'>" + window.localStorage.key(i) + "</a></li>");
-    }
-
-    // Tell jQueryMobile to refresh the list
-    $("#history_tracklist").listview('refresh');
-
-});
-
-// When the user clicks a link to view track info, set/change the track_id attribute on the track_info page.
-$("#history_tracklist li a").live('click', function () {
-
-    $("#track_info").attr("track_id", $(this).text());
-
-});
-
-
-// When the user views the Track Info page
-$('#track_info').live('pageshow', function () {
+/ When the user views the Track Info page
+function getRoutes () {
 
     // Find the track_id of the workout they are viewing
     var key = $(this).attr("track_id");
